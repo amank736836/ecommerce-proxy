@@ -1,10 +1,13 @@
-import express from "express";
-import { createProxyMiddleware } from "http-proxy-middleware";
+import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const servers = [
-  "http://localhost:5001",
-  "http://localhost:5002",
-  "http://localhost:5003",
+  process.env.SERVER_1,
+  process.env.SERVER_2,
+  process.env.SERVER_3,
 ];
 
 let currentIndex = 0;
@@ -20,17 +23,18 @@ const app = express();
 app.use((req, res, next) => {
   const target = getNextServer();
   console.log(`Forwarding request to: ${target}`);
-
+  
   createProxyMiddleware({
     target,
     changeOrigin: true,
     onError: (err, req, res) => {
-      console.error("Proxy error:", err);
-      res.status(502).send("Bad Gateway");
+      console.error('Proxy error:', err);
+      res.status(502).send('Bad Gateway');
     },
   })(req, res, next);
 });
 
-app.listen(3000, () => {
-  console.log("Load balancer running on http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Load balancer running on http://localhost:${PORT}`);
 });
