@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import dotenv from "dotenv";
 
@@ -21,6 +22,23 @@ function getNextServer() {
 }
 
 const app = express();
+
+const allowedOrigins = [process.env.FRONTEND_URL_1];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin.";
+        return callback(new ErrorHandler(msg, 403), false);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   const target = getNextServer();
