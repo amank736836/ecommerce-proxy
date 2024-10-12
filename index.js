@@ -28,7 +28,6 @@ app.use((req, res, next) => {
 
   createProxyMiddleware({
     target,
-    changeOrigin: true,
     onError: (err, req, res) => {
       console.error("Proxy error:", err);
       res.status(502).send("Bad Gateway");
