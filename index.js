@@ -15,7 +15,15 @@ const servers = [
 
 const app = express();
 
-const allowedOrigins = [process.env.FRONTEND_URL_1];
+const allowedOrigins = [
+  process.env.FRONTEND_URL_1,
+  process.env.FRONTEND_URL_2,
+  process.env.FRONTEND_URL_3,
+  process.env.FRONTEND_URL_4,
+  process.env.FRONTEND_URL_5,
+  process.env.FRONTEND_URL_6,
+
+];
 
 app.use(
   cors({
