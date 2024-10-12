@@ -22,6 +22,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL_4,
   process.env.FRONTEND_URL_5,
   process.env.FRONTEND_URL_6,
+  process.env.FRONTEND_URL_7,
 
 ];
 
