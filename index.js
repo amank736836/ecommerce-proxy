@@ -7,10 +7,10 @@ dotenv.config();
 
 const servers = [
   process.env.SERVER_1,
-  process.env.SERVER_2,
-  process.env.SERVER_3,
-  process.env.SERVER_4,
-  process.env.SERVER_5,
+  // process.env.SERVER_2,
+  // process.env.SERVER_3,
+  // process.env.SERVER_4,
+  // process.env.SERVER_5,
 ];
 
 const app = express();
@@ -22,9 +22,8 @@ app.use(
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new ErrorHandler(msg, 403), false);
+        const msg = "The CORS policy for this site does not allow access from the specified Origin as Proxy Server.";
+        return callback(new Error(msg), false);
       }
       return callback(null, true);
     },
