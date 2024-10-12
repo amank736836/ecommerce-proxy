@@ -23,7 +23,6 @@ const allowedOrigins = [
   process.env.FRONTEND_URL_5,
   process.env.FRONTEND_URL_6,
   process.env.FRONTEND_URL_7,
-
 ];
 
 app.use(
@@ -31,7 +30,8 @@ app.use(
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = "The CORS policy for this site does not allow access from the specified Origin as Proxy Server.";
+        const msg =
+          "The CORS policy for this site does not allow access from the specified Origin as Proxy Server.";
         return callback(new Error(msg), false);
       }
       return callback(null, true);
@@ -55,6 +55,9 @@ app.use((req, res, next) => {
   createProxyMiddleware({
     target,
     changeOrigin: true,
+    onProxyReq: (proxyReq, req) => {
+      proxyReq.setHeader("Origin", process.env.PROXY_URL);
+    },
     onError: (err, req, res) => {
       console.error("Proxy error:", err);
       res.status(502).send("Bad Gateway");
