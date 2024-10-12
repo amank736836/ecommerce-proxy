@@ -1,6 +1,6 @@
-import express from 'express';
-import { createProxyMiddleware } from 'http-proxy-middleware';
-import dotenv from 'dotenv';
+import express from "express";
+import { createProxyMiddleware } from "http-proxy-middleware";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -8,6 +8,8 @@ const servers = [
   process.env.SERVER_1,
   process.env.SERVER_2,
   process.env.SERVER_3,
+  process.env.SERVER_4,
+  process.env.SERVER_5,
 ];
 
 let currentIndex = 0;
@@ -23,13 +25,13 @@ const app = express();
 app.use((req, res, next) => {
   const target = getNextServer();
   console.log(`Forwarding request to: ${target}`);
-  
+
   createProxyMiddleware({
     target,
     changeOrigin: true,
     onError: (err, req, res) => {
-      console.error('Proxy error:', err);
-      res.status(502).send('Bad Gateway');
+      console.error("Proxy error:", err);
+      res.status(502).send("Bad Gateway");
     },
   })(req, res, next);
 });
