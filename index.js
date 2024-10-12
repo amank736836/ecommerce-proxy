@@ -13,14 +13,6 @@ const servers = [
   process.env.SERVER_5,
 ];
 
-let currentIndex = 0;
-
-function getNextServer() {
-  const server = servers[currentIndex];
-  currentIndex = (currentIndex + 1) % servers.length;
-  return server;
-}
-
 const app = express();
 
 const allowedOrigins = [process.env.FRONTEND_URL_1];
@@ -39,6 +31,14 @@ app.use(
     credentials: true,
   })
 );
+
+let currentIndex = 0;
+
+function getNextServer() {
+  const server = servers[currentIndex];
+  currentIndex = (currentIndex + 1) % servers.length;
+  return server;
+}
 
 app.use((req, res, next) => {
   const target = getNextServer();
