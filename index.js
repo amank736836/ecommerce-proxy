@@ -7,10 +7,10 @@ dotenv.config();
 
 const servers = [
   process.env.SERVER_1,
-  process.env.SERVER_2,
-  process.env.SERVER_3,
-  process.env.SERVER_4,
-  process.env.SERVER_5,
+  // process.env.SERVER_2,
+  // process.env.SERVER_3,
+  // process.env.SERVER_4,
+  // process.env.SERVER_5,
 ];
 
 const app = express();
