@@ -4,7 +4,6 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import dotenv from "dotenv";
 
 dotenv.config();
-app.use(morgan("dev"));
 
 const servers = [
   process.env.SERVER_1,
@@ -42,6 +41,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(morgan("dev"));
 
 let currentIndex = 0;
 
