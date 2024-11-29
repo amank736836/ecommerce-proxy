@@ -4,12 +4,13 @@ import { createProxyMiddleware } from "http-proxy-middleware";
 import dotenv from "dotenv";
 
 dotenv.config();
+app.use(morgan("dev"));
 
 const servers = [
-  // process.env.SERVER_1,
-  // process.env.SERVER_2,
-  // process.env.SERVER_3,
-  // process.env.SERVER_4,
+  process.env.SERVER_1,
+  process.env.SERVER_2,
+  process.env.SERVER_3,
+  process.env.SERVER_4,
   process.env.SERVER_5,
 ];
 
